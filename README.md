@@ -26,3 +26,27 @@ Scripts SQL complets et commentés pour chaque requête demandée.
 Résultats des requêtes montrant la manipulation des données : filtrage, agrégation, jointures.
 Documentation expliquant la logique et l’objectif de chaque requête.
 Compétences renforcées en interrogation et gestion de bases de données relationnelles.
+
+## Exemple de requête SQL
+```sql
+-- Cette requête permet d'obtenir le chiffre d'affaires total par catégorie de produit
+SELECT 
+    c.nom_categorie,
+    SUM(p.prix_unitaire * v.quantite) AS chiffre_affaires
+FROM 
+    categories c
+JOIN 
+    produits p ON c.id_categorie = p.id_categorie
+JOIN 
+    ventes v ON p.id_produit = v.id_produit
+GROUP BY 
+    c.nom_categorie
+ORDER BY 
+    chiffre_affaires DESC;
+```
+
+### Explications :
+On relie les tables categories, produits et ventes via des jointures pour accéder aux informations nécessaires.
+On calcule le chiffre d’affaires par catégorie en multipliant le prix unitaire par la quantité vendue, puis en additionnant ces montants.
+Le résultat est groupé par catégorie pour obtenir un total par groupe.
+Enfin, on trie les résultats du plus grand au plus petit chiffre d’affaires.
